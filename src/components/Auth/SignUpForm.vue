@@ -46,11 +46,6 @@
         :rules="passwordRules"
         required
       ></v-text-field>
-      <vue-recaptcha
-        ref="recaptcha"
-        @verify="onVerify"
-        :sitekey="sitekey">
-      </vue-recaptcha>
     </v-form>
   </v-card-text>
 
@@ -68,7 +63,6 @@
 </template>
 
 <script>
-import VueRecaptcha from 'vue-recaptcha';
 import AuthService from '@/services/auth';
 
 export default {
@@ -94,12 +88,7 @@ export default {
       ],
       error: null,
       valid: false,
-      recaptchaResponse: null,
-      sitekey: process.env.VUE_APP_RECAPTCHA,
     };
-  },
-  components: {
-    VueRecaptcha,
   },
   mounted() {
     this.valid = false;
@@ -107,28 +96,19 @@ export default {
   methods: {
     async register() {
       try {
-        const response = await AuthService.register(
-          {
-            name: this.name,
-            email: this.email,
-            celphone: this.celphone,
-            password: this.password,
-          },
-          this.recaptchaResponse
-        );
+        const response = await AuthService.register({
+          name: this.name,
+          email: this.email,
+          celphone: this.celphone,
+          password: this.password,
+        });
         this.$store.dispatch('setToken', response.data.token);
         this.$store.dispatch('setUser', response.data.user);
         this.$emit('done');
         this.$refs.form.reset();
       } catch (error) {
         this.error = error.response.data.error;
-      } finally {
-        this.recaptchaResponse = null;
-        this.$refs.recaptcha.reset();
       }
-    },
-    onVerify(response) {
-      this.recaptchaResponse = response;
     },
   },
 };

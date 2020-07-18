@@ -3,7 +3,6 @@
   <v-layout justify-center>
     <v-flex xs3>
       <category-list/>
-      <viewed-history-list v-if="isUserLoggedIn" class="mr-2 mt-2" />
     </v-flex>
     <v-flex xs7>
       <albums-search-bar />
@@ -32,7 +31,4 @@ export default {
     }),
   },
 };
-</script>
-
-<style lang="scss" scoped>
-</style>
+</script> 
