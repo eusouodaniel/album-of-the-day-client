@@ -1,7 +1,7 @@
 <template>
 <v-layout justify-center>
-  <v-flex xs3>
-    <panel title="Album Metadata">
+  <v-flex xs3 v-if="isUserLoggedIn">
+    <panel title="Criar álbum">
       <v-text-field
         label="Título"
         v-model="album.title"
@@ -21,45 +21,32 @@
         required
       ></v-text-field>
       <v-text-field
-        label="URL do álbum"
-        v-model="album.imageUrl"
+        label="URL da imagem"
+        v-model="album.image_url"
         prepend-icon="photo"
         required
       ></v-text-field>
       <v-text-field
-        label="Conta do SoundCloud"
-        v-model="album.soundCloudId"
+        label="Melhor música"
+        v-model="album.best_music"
+        prepend-icon="queue_music"
+      ></v-text-field>
+      <v-text-field
+        label="Embed"
+        v-model="album.embed"
         prepend-icon="cloud"
       ></v-text-field>
-      <v-text-field
-        label="Ações"
-        v-model="album.stocks"
-        prepend-icon="all_inbox"
-        required
-      ></v-text-field>
+    <v-btn color="primary" @click="save">Editar álbum</v-btn>
     </panel>
   </v-flex>
-  <v-flex xs7>
-    <panel title="Detalhes" class="ml-2">
-      <v-text-field
-        label="Lista de músicas"
-        v-model="album.songs"
-        prepend-icon="playlist_play"
-        multi-line
-      ></v-text-field>
-      <v-text-field
-        label="Descrição"
-        v-model="album.description"
-        prepend-icon="description"
-        multi-line
-      ></v-text-field>
-      <v-btn color="primary" @click="save">Atualizar álbum</v-btn>
-    </panel>
+  <v-flex xs10 v-else>
+    <h3>Logue-se para acessar essa função</h3>
   </v-flex>
 </v-layout>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import Panel from '@/components/Base/Panel.vue';
 import AlbumsService from '@/services/album';
 
@@ -70,13 +57,23 @@ export default {
         title: null,
         artist: null,
         genre: null,
-        imageUrl: null,
-        soundCloudId: null,
-        songs: null,
-        stocks: null,
-        description: null,
+        image_url: null,
+        best_music: null,
+        embed: null,
       },
     };
+  },
+  computed: {
+    ...mapState({
+      isUserLoggedIn: state => state.auth.isUserLoggedIn,
+      user: state => state.auth.user,
+    }),
+  },
+  mounted() {
+    if (!this.isUserLoggedIn) {
+      this.$router.push('/');
+      return;
+    }
   },
   components: {
     Panel,

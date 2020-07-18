@@ -31,11 +31,11 @@
         required
       ></v-text-field>
       <v-text-field
-        v-model="phonenumber"
+        v-model="celphone"
         prepend-icon="phone"
         type="text"
         label="Celular"
-        :rules="phoneRules"
+        :rules="celPhoneRules"
         required
       ></v-text-field>
       <v-text-field
@@ -81,8 +81,8 @@ export default {
         v => !!v || 'E-mail é obrigatório',
         v => /.+@.+/.test(v) || 'O E-mail precisa ser válido',
       ],
-      phonenumber: '',
-      phoneRules: [v => !!v || 'Telefone é obrigatório'],
+      celphone: '',
+      celPhoneRules: [v => !!v || 'Telefone é obrigatório'],
       address: '',
       addressRules: [v => !!v || 'Endereço é obrigatório'],
       password: '',
@@ -111,7 +111,7 @@ export default {
           {
             name: this.name,
             email: this.email,
-            phonenumber: this.phonenumber,
+            celphone: this.celphone,
             password: this.password,
           },
           this.recaptchaResponse
