@@ -6,10 +6,10 @@
       :items="likes">
       <template slot="items" slot-scope="props">
         <td class="text-xs">
-          {{ props.item.title }}
+          {{ props.item.album.title }}
         </td>
         <td class="text-xs">
-          {{ props.item.artist }}
+          {{ props.item.album.artist }}
         </td>
         <td class="text-xs-right">
           <v-btn
@@ -17,7 +17,7 @@
             :to="{
               name: 'album-view',
               params: {
-                albumId: props.item.id,
+                albumId: props.item.album._id,
               },
             }">
             Ver

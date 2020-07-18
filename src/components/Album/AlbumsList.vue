@@ -28,6 +28,7 @@
               <div class="title">{{ props.item.title }}</div>
               <div class="subheading">{{ props.item.artist }}</div>
               <div class="subheading blue--text">{{ props.item.genre }}</div>
+              <div class="subheading">{{ props.item.user.name }}</div>
             </div>
           </v-card-title>
         </v-card>
