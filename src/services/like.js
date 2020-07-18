@@ -6,10 +6,10 @@ export default {
   },
 
   post(like) {
-    return Api().post('/like', like);
+    return Api().post('/likes', like);
   },
 
   delete(id) {
-    return Api().delete(`/like/${id}`);
+    return Api().delete(`/likes/${id}`);
   },
 };

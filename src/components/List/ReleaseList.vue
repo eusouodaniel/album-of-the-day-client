@@ -17,17 +17,18 @@
           :to="{
             name: 'album-view',
             params: {
-              albumId: props.item.id,
+              albumId: props.item._id,
             },
           }">
           <v-img
-            :src="props.item.imageUrl"
+            :src="props.item.image_url"
             height="260px">
           </v-img>
           <v-card-title primary-title>
             <div>
               <div class="title">{{ props.item.title }}</div>
               <div class="subheading">{{ props.item.artist }}</div>
+              <div class="subheading">{{ props.item.user.name }}</div>
             </div>
           </v-card-title>
         </v-card>

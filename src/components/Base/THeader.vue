@@ -10,6 +10,9 @@
   </v-toolbar-items>
   <v-spacer></v-spacer>
   <v-toolbar-items v-if="isUserLoggedIn">
+    <v-btn flat icon to="/album/adicionar">
+      <v-icon>add</v-icon>
+    </v-btn>
     <v-btn flat icon to="/curtidos">
       <v-icon>favorite</v-icon>
     </v-btn>

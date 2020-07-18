@@ -6,15 +6,14 @@
   </v-btn>
   <v-layout justify-center>
     <v-flex xs6 sm5 md4>
-      <album-image :url="album.imageUrl"/>
+      <album-image :url="album.image_url"/>
     </v-flex>
     <v-flex xs6 sm5 md4>
       <album-metadata :album="album" @done="dialog = true"/>
     </v-flex>
   </v-layout>
   <album-detail
-  :link="scLink"
-  :songs="album.songs"
+  :embed="embed"
   :summary="album.description"
   class="mt-5"
   />
@@ -33,7 +32,7 @@ export default {
   data() {
     return {
       album: {},
-      scLink: '',
+      embed: '',
       dialog: false,
     };
   },
@@ -53,7 +52,7 @@ export default {
   async mounted() {
     const { albumId } = this.route.params;
     this.album = (await AlbumsService.show(albumId)).data;
-    this.scLink = `soundcloud://${this.album.soundCloudId}`;
+    this.embed = this.album.embed;
   },
   components: {
     AlbumImage,

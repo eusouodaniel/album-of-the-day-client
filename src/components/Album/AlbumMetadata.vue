@@ -9,8 +9,11 @@
   <div class="a-sub blue--text">
     {{album.genre}}
   </div>
-  <div class="success--text">
-    Avaliação: {{album.stocks}}
+  <div class="a-sub">
+    Melhor música na opinião do autor: {{album.best_music}}
+  </div>
+  <div class="a-sub">
+    Postado por: {{album.user.name}}
   </div>
 
   <div v-if="isUserLoggedIn">
@@ -51,7 +54,7 @@ export default {
       if (!this.isUserLoggedIn) return;
       try {
         const likes = (await LikeService.index({
-          albumId: this.album.id,
+          albumId: this.album._id,
         })).data;
         if (likes.length) {
           [this.like] = likes;
@@ -65,7 +68,7 @@ export default {
     async setLike() {
       try {
         this.like = (await LikeService.post({
-          albumId: this.album.id,
+          albumId: this.album._id,
         })).data;
       } catch (err) {
         console.log(err); // eslint-disable-line no-console
@@ -73,7 +76,7 @@ export default {
     },
     async unsetLike() {
       try {
-        await LikeService.delete(this.like.id);
+        await LikeService.delete(this.like._id);
         this.like = null;
       } catch (err) {
         console.log(err); // eslint-disable-line no-console

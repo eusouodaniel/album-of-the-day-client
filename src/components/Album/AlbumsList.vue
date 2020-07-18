@@ -16,11 +16,11 @@
           :to="{
             name: 'album-view',
             params: {
-              albumId: props.item.id,
+              albumId: props.item._id,
             },
           }">
           <v-img
-            :src="props.item.imageUrl"
+            :src="props.item.image_url"
             height="300px">
           </v-img>
           <v-card-title primary-title>
