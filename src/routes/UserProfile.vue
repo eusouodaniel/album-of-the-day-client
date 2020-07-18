@@ -11,7 +11,7 @@
 
       <v-text-field
         label="Telefone"
-        v-model="user.phonenumber"
+        v-model="user.celphone"
         prepend-icon="phone_android"
         required
       ></v-text-field>
@@ -54,8 +54,7 @@ export default {
     return {
       user: {
         name: null,
-        phonenumber: null,
-        address: null,
+        celphone: null,
       },
       dialog: false,
     };
@@ -66,9 +65,10 @@ export default {
   methods: {
     async save() {
       try {
-        const { updated } = (await UserService.update(this.user)).data;
+        const { user, updated } = (await UserService.update(this.user)).data;
         this.$store.dispatch('updateUser', this.user);
         if (!updated) throw new Error('Fail to update');
+        this.$store.dispatch('setUser', user);
         this.dialog = true;
       } catch (err) {
         console.log(err); // eslint-disable-line no-console
@@ -87,7 +87,7 @@ export default {
     }
     this.user.address = this.$store.state.auth.user.address;
     this.user.name = this.$store.state.auth.user.name;
-    this.user.phonenumber = this.$store.state.auth.user.phonenumber;
+    this.user.celphone = this.$store.state.auth.user.celphone;
   },
 };
 </script>
